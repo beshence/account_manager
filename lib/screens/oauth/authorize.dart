@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:account_manager/misc.dart';
 import 'package:beshence_sdk_flutter/beshence_sdk_flutter.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +16,9 @@ class OauthAuthorizeScreen extends StatefulWidget {
 }
 
 class _OauthAuthorizeScreenState extends State<OauthAuthorizeScreen> {
+  bool _showCode = false;
+  String _code = "";
+
   @override
   void initState() {
     super.initState();
@@ -33,25 +38,49 @@ class _OauthAuthorizeScreenState extends State<OauthAuthorizeScreen> {
           SizedBox(height: 24,),
           Text("Connect new app", style: TextTheme.of(context).headlineLarge,),
           SizedBox(height: 24,),
-          SizedBox(height: 24,),
-          OverflowBar(
-            alignment: .end,
-            overflowAlignment: .end,
-            spacing: 16,
-            overflowSpacing: 0,
-            overflowDirection: .up,
-            children: [
-              FilledButton(
-                onPressed: () {
-                  String tokenId = Uuid().v4();
-                  Beshence.selectedAccount!.issueToken(
-                    tokenId: tokenId,
-                    scope: widget.queryParameters["scope"]!);
-                },
-                child: const Text('Continue'),
-              ),
-            ],
-          )
+          if(_showCode) ...[
+            Text("Copy text below to your app:"),
+            SelectableText(_code)
+          ] else ...[
+            OverflowBar(
+              alignment: .end,
+              overflowAlignment: .end,
+              spacing: 16,
+              overflowSpacing: 0,
+              overflowDirection: .up,
+              children: [
+                FilledButton(
+                  onPressed: () {
+                    String tokenId = Uuid().v4();
+                    Beshence.selectedAccount!.issueToken(
+                        tokenId: tokenId,
+                        scope: widget.queryParameters["scope"]!);
+
+                    Set<String> banks = {};
+                    List<String> vaults = [];
+
+                    for (BeshenceVault vault in Beshence.selectedAccount!.vaults) {
+                      banks.add(vault.id);
+                      vaults.add("${vault.bank.id}_${vault.id}");
+                    }
+
+                    var response = {
+                      "token_id": tokenId,
+                      "account_id": Beshence.selectedAccount!.id,
+                      "banks": banks,
+                      "vaults": vaults
+                    };
+
+                    setState(() {
+                      _showCode = true;
+                      _code = base64.encode(utf8.encode(jsonEncode(response)));
+                    });
+                  },
+                  child: const Text('Continue'),
+                ),
+              ],
+            )
+          ]
         ],
       ),
     );
