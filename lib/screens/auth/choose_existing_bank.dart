@@ -77,6 +77,7 @@ class _ChooseExistingBankScreenState extends State<ChooseExistingBankScreen> {
               children: [
                 ListView.builder(
                     shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
                     itemCount: banks.length,
                     itemBuilder: (context, index) {
                       return ListTile(

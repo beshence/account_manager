@@ -82,6 +82,7 @@ class _ChooseVaultScreenState extends State<ChooseVaultScreen> {
           else
             ListView.builder(
                 shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
                 itemCount: _vaults.length,
                 itemBuilder: (context, index) {
                   return ListTile(
