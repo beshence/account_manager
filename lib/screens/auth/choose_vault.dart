@@ -92,7 +92,7 @@ class _ChooseVaultScreenState extends State<ChooseVaultScreen> {
 
                       if(widget.newAccount) { // register
                         if(accountIdAttachedToVault != null) {
-                          showDialog(context: context, builder: (context) => AlertDialog.adaptive(
+                          showDialog(context: context, builder: (context) => AlertDialog(
                             title: Text("Cannot use this Vault"),
                             content: Text("This Vault is used by another Beshence Account."),
                             actions: [
@@ -109,7 +109,7 @@ class _ChooseVaultScreenState extends State<ChooseVaultScreen> {
                         context.go(redirectToAfterLoggingIn ?? "/");
                       } else { // login
                         if(accountIdAttachedToVault == null) {
-                          showDialog(context: context, builder: (context) => AlertDialog.adaptive(
+                          showDialog(context: context, builder: (context) => AlertDialog(
                             title: Text("Cannot use this Vault"),
                             content: Text("We could not find Beshence Account which use this Vault."),
                             actions: [

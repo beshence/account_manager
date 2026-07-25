@@ -30,7 +30,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         ),
         BackdropFilter(
           filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
-          child: AlertDialog.adaptive(
+          child: AlertDialog(
             constraints: BoxConstraints(maxWidth: dialogWidth),
             title: Text('Welcome to Beshence Account Manager!',),
             content: Text(
