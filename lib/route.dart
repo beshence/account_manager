@@ -51,7 +51,7 @@ GoRouter router = GoRouter(
   ],
   redirect: (context, state) {
     final selectedAccount = Beshence.selectedAccount;
-    final location = state.uri.path;
+    final location = state.uri.toString();
 
     if (selectedAccount == null) {
       if (location != '/welcome' && !location.startsWith('/login') && !location.startsWith('/register')) {
