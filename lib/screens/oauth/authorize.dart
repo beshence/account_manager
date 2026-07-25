@@ -56,19 +56,20 @@ class _OauthAuthorizeScreenState extends State<OauthAuthorizeScreen> {
                         tokenId: tokenId,
                         scope: widget.queryParameters["scope"]!);
 
-                    Set<String> banks = {};
-                    List<String> vaults = [];
+                    List<Map<String, dynamic>> vaults = [];
 
                     for (BeshenceVault vault in Beshence.selectedAccount!.vaults) {
-                      banks.add(vault.id);
-                      vaults.add("${vault.bank.id}_${vault.id}");
+                      vaults.add({
+                        "i": vault.id,
+                        "b": vault.bank.id,
+                        "p": vault.priority
+                      });
                     }
 
                     var response = {
-                      "token_id": tokenId,
-                      "account_id": Beshence.selectedAccount!.id,
-                      "banks": banks,
-                      "vaults": vaults
+                      "tid": tokenId,
+                      "aid": Beshence.selectedAccount!.id,
+                      "vs": vaults
                     };
 
                     setState(() {
