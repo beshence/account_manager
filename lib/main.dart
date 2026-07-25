@@ -24,12 +24,12 @@ class MyApp extends StatelessWidget {
     return DynamicColorBuilder(builder: (lightDynamic, darkDynamic) {
       final lightColorScheme = lightDynamic?.harmonized() ??
           ColorScheme.fromSeed(
-              seedColor: Colors.blue,
+              seedColor: Colors.deepPurpleAccent,
               brightness: Brightness.light
           );
       final darkColorScheme = darkDynamic?.harmonized() ??
           ColorScheme.fromSeed(
-            seedColor: Colors.blue,
+            seedColor: Colors.deepPurpleAccent,
             brightness: Brightness.dark,
           );
 
