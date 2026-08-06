@@ -1,6 +1,7 @@
 import 'package:account_manager/route.dart';
 import 'package:beshence_sdk_flutter/beshence_sdk_flutter.dart';
 import 'package:dynamic_color/dynamic_color.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hive_ce_flutter/adapters.dart';
@@ -33,16 +34,24 @@ class MyApp extends StatelessWidget {
             brightness: Brightness.dark,
           );
 
+      double toolbarHeight = kIsWeb ? 64 : 56;
+
       return MaterialApp.router(
           routerConfig: router,
           title: 'Beshence Account Manager',
           theme: ThemeData(
             colorScheme: lightColorScheme,
-            appBarTheme: AppBarTheme(backgroundColor: lightColorScheme.surface),
+            appBarTheme: AppBarTheme(
+              backgroundColor: lightColorScheme.surface,
+              toolbarHeight: toolbarHeight,
+            ),
           ),
           darkTheme: ThemeData(
             colorScheme: darkColorScheme,
-            appBarTheme: AppBarTheme(backgroundColor: darkColorScheme.surface),
+            appBarTheme: AppBarTheme(
+              backgroundColor: darkColorScheme.surface,
+              toolbarHeight: toolbarHeight,
+            ),
           ),
           themeMode: ThemeMode.system
       );
