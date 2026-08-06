@@ -23,6 +23,12 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
         appBar: AppBar(
           title: Text("Beshence Account Manager"),
+          actionsPadding: .only(right: 8),
+          actions: [
+            Beshence.selectedAccount!.avatarButton(
+                onPressed: () => BeshenceWidgets.showAccountChooserModal(context: context)
+            ),
+          ],
         ),
         body: SizedBox.expand()
     );
