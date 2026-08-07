@@ -97,7 +97,7 @@ class _RegisterInBankScreenState extends State<RegisterInBankScreen> {
                                 _enabled = true;
                               });
                             },
-                            child: const Text('Log in'),
+                            child: const Text('Register'),
                           ),
                         ],
                       )
