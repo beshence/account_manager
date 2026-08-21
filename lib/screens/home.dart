@@ -9,6 +9,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final TextEditingController _changeNameController = TextEditingController();
+
   @override
   void initState() {
     super.initState();
@@ -16,6 +18,12 @@ class _HomeScreenState extends State<HomeScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       BeshenceDaemon.of(Beshence.selectedAccount!).startDaemon();
     });
+  }
+
+  @override
+  void dispose() {
+    _changeNameController.dispose();
+    super.dispose();
   }
 
   @override
@@ -30,7 +38,27 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ],
         ),
-        body: SizedBox.expand()
+        body: ListView(
+          children: [
+            ListTile(
+              leading: Icon(Icons.edit),
+              title: Text("Change account name"),
+              onTap: () => showDialog(context: context, builder: (context) {
+                return AlertDialog(
+                  title: const Text('Set new name'),
+                  content: TextField(controller: _changeNameController, autofocus: true),
+                  actions: [
+                    TextButton(onPressed: () => Navigator.pop(context), child: const Text("Cancel")),
+                    TextButton(onPressed: () async {
+                      await Beshence.selectedAccount!.setName(_changeNameController.text);
+                      Navigator.pop(context);
+                    }, child: const Text("OK"),),
+                  ],
+                );
+              }),
+            )
+          ],
+        )
     );
   }
 }
