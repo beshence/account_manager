@@ -51,6 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     TextButton(onPressed: () => Navigator.pop(context), child: const Text("Cancel")),
                     TextButton(onPressed: () async {
                       await Beshence.selectedAccount!.setName(_changeNameController.text);
+                      _changeNameController.text = "";
                       Navigator.pop(context);
                     }, child: const Text("OK"),),
                   ],
